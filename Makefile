@@ -6,7 +6,7 @@ all: bastext
 
 # Main executable ------------------------------------------------------------
 bastext: $(OBJS)
-	$(CC) -o bastext $(OBJS)
+	$(CC) -o bastext $(OBJS) $(CFLAGS) $(LDFLAGS)
 
 tokens.o: tokens.c tokens.h
 	$(CC) -c tokens.c
