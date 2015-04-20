@@ -6,31 +6,31 @@ all: bastext
 
 # Main executable ------------------------------------------------------------
 bastext: $(OBJS)
-	gcc -o bastext $(OBJS)
+	$(CC) -o bastext $(OBJS)
 
 tokens.o: tokens.c tokens.h
-	gcc -c tokens.c
+	$(CC) -c tokens.c
 
 tokenize.o: tokenize.c tokenize.h tokens.h
-	gcc -c tokenize.c
+	$(CC) -c tokenize.c
 
 dtokeniz.o: dtokeniz.c tokenize.h tokens.h
-	gcc -c dtokeniz.c
+	$(CC) -c dtokeniz.c
 
 main.o: main.c inmode.h outmode.h tokenize.h
-	gcc -c main.c
+	$(CC) -c main.c
 
 inmode.o: inmode.c tokenize.h version.h inmode.h select.h t64.h
-	gcc -c inmode.c
+	$(CC) -c inmode.c
 
 outmode.o: outmode.c tokenize.h version.h outmode.h select.h t64.h
-	gcc -c outmode.c
+	$(CC) -c outmode.c
 
 select.o: select.c select.h tokenize.h
-	gcc -c select.c
+	$(CC) -c select.c
 
 t64.o: t64.c t64.h
-	gcc -c t64.c
+	$(CC) -c t64.c
 
 # Cleanup --------------------------------------------------------------------
 clean:
