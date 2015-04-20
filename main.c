@@ -165,6 +165,15 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+	else if (Out == mode &&  0 != strcmp(outfile, "-")) {
+	    // overwrite dest
+	    output = fopen(outfile, "wt");
+	    if (NULL == output) {
+		fprintf(stderr, "%s: Unable to open output file: %s\n",
+			argv[0], outfile);
+		exit(1);
+	    }
+	}
 	else {
 		output = stdout;
 	}
@@ -180,7 +189,8 @@ int main(int argc, char *argv[])
 				break;
 
 			case Out:
-				txt2bas(argv[i], force, t64mode);
+			    if (output) txt2prg(argv[i],output,force);
+				else  txt2bas(argv[i], force, t64mode);
 				break;
 		}
 	}

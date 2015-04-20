@@ -20,6 +20,31 @@
 
 int outconvert(FILE *, FILE *, int, basic_t);
 
+
+void txt2prg(const char *infile,FILE *output, basic_t force)
+{
+    FILE			*input;
+    int				adr;
+    basic_t			mode;
+	
+    /* First, open input file */
+    input = fopen(infile, "rt");
+    if (!input) {
+	fprintf(stderr, "Unable to open input file: %s\n", infile);
+	exit(1);
+    }
+
+    /* Now convert the file to text */
+    adr = 0x0801; // TODO fixup for basic 7, check code and petcat, and cbm basic.py
+    mode = (Any == force) ? Basic7 : force;		/* default BASIC mode */
+    
+    fputc(adr & 0xFF, output);	/* low */
+    fputc(adr >> 8, output);	/* high */
+    adr = outconvert(input, output, adr, mode);
+    fclose(input);
+}
+
+    
 /* txt2bas
  * - converts a text file into a binary file
  * in:	infile - file name of file to read
